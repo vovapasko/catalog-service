@@ -9,7 +9,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 
 @AutoConfigureMockMvc
-@SpringBootTest(classes = [BookController::class]) // Specify the configuration class
+@SpringBootTest(classes = [BookController::class])
 class BookControllerMvcTest {
 
     @Autowired
