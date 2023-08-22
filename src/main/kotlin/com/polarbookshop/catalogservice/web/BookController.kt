@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ResponseStatusException
 
 
 @RestController
@@ -33,8 +35,8 @@ class BookController(
     fun addBook(@RequestBody book: Book): ResponseEntity<Book> {
         return try {
             ResponseEntity.status(HttpStatus.CREATED).body(bookService.addBookToCatalog(book))
-        }catch (exception: BookAlreadyExists){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
+        } catch (exception: BookAlreadyExists) {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, exception.message)
         }
     }
 
@@ -48,5 +50,14 @@ class BookController(
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Book $isbn was deleted successfully")
     }
 
+    @PutMapping("/{isbn}")
+    fun editBook(@PathVariable isbn: String, @RequestBody book: Book): ResponseEntity<Book> {
+        try {
+            val editedBook = bookService.editBook(isbn, book)
+            return ResponseEntity.status(HttpStatus.OK).body(editedBook)
+        } catch (exception: BookNotFoundException) {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, exception.message)
+        }
+    }
 
 }
