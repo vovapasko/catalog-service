@@ -4,6 +4,7 @@ import com.polarbookshop.catalogservice.domain.Book
 import com.polarbookshop.catalogservice.domain.BookAlreadyExists
 import com.polarbookshop.catalogservice.domain.BookNotFoundException
 import com.polarbookshop.catalogservice.domain.BookService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -32,7 +33,7 @@ class BookController(
     }
 
     @PostMapping
-    fun addBook(@RequestBody book: Book): ResponseEntity<Book> {
+    fun addBook(@Valid @RequestBody book: Book): ResponseEntity<Book> {
         return try {
             ResponseEntity.status(HttpStatus.CREATED).body(bookService.addBookToCatalog(book))
         } catch (exception: BookAlreadyExists) {
@@ -51,7 +52,7 @@ class BookController(
     }
 
     @PutMapping("/{isbn}")
-    fun editBook(@PathVariable isbn: String, @RequestBody book: Book): ResponseEntity<Book> {
+    fun editBook(@PathVariable isbn: String, @Valid @RequestBody book: Book): ResponseEntity<Book> {
         try {
             val editedBook = bookService.editBook(isbn, book)
             return ResponseEntity.status(HttpStatus.OK).body(editedBook)
