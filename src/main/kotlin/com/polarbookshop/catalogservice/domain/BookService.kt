@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service
 class BookService(
     val bookRepository: BookRepository
 ) {
-    fun viewBookList() = bookRepository.findAll()
+    fun getAll() = bookRepository.findAll()
 
-    fun viewBookDetails(isbn: String): Book? {
+    fun getBookByIsbn(isbn: String): Book? {
         return bookRepository.findByIsbn(isbn) ?: throw BookNotFoundException(isbn)
     }
 
