@@ -1,6 +1,7 @@
 package com.polarbookshop.catalogservice.web
 
 import com.polarbookshop.catalogservice.domain.Book
+import com.polarbookshop.catalogservice.domain.BookAlreadyExists
 import com.polarbookshop.catalogservice.domain.BookNotFoundException
 import com.polarbookshop.catalogservice.domain.BookService
 import org.springframework.http.HttpStatus
@@ -30,7 +31,11 @@ class BookController(
 
     @PostMapping
     fun addBook(@RequestBody book: Book): ResponseEntity<Book> {
-        return bookService.addBookToCatalog(book).let { ResponseEntity.status(HttpStatus.CREATED).body(it) }
+        return try {
+            ResponseEntity.status(HttpStatus.CREATED).body(bookService.addBookToCatalog(book))
+        }catch (exception: BookAlreadyExists){
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).build()
+        }
     }
 
     @DeleteMapping("/{isbn}")
