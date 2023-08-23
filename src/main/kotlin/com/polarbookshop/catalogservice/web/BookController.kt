@@ -1,8 +1,6 @@
 package com.polarbookshop.catalogservice.web
 
 import com.polarbookshop.catalogservice.domain.Book
-import com.polarbookshop.catalogservice.domain.BookAlreadyExists
-import com.polarbookshop.catalogservice.domain.BookNotFoundException
 import com.polarbookshop.catalogservice.domain.BookService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.server.ResponseStatusException
 
 
 @RestController
@@ -34,31 +31,19 @@ class BookController(
 
     @PostMapping
     fun addBook(@Valid @RequestBody book: Book): ResponseEntity<Book> {
-        return try {
-            ResponseEntity.status(HttpStatus.CREATED).body(bookService.addBookToCatalog(book))
-        } catch (exception: BookAlreadyExists) {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, exception.message)
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(bookService.addBookToCatalog(book))
     }
 
     @DeleteMapping("/{isbn}")
     fun deleteBook(@PathVariable isbn: String): ResponseEntity<String> {
-        try {
-            bookService.removeBookFromCatalog(isbn)
-        } catch (exception: BookNotFoundException) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.message)
-        }
+        bookService.removeBookFromCatalog(isbn)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Book $isbn was deleted successfully")
     }
 
     @PutMapping("/{isbn}")
     fun editBook(@PathVariable isbn: String, @Valid @RequestBody book: Book): ResponseEntity<Book> {
-        try {
-            val editedBook = bookService.editBook(isbn, book)
-            return ResponseEntity.status(HttpStatus.OK).body(editedBook)
-        } catch (exception: BookNotFoundException) {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, exception.message)
-        }
+        val editedBook = bookService.editBook(isbn, book)
+        return ResponseEntity.status(HttpStatus.OK).body(editedBook)
     }
 
 }
