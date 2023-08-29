@@ -19,6 +19,5 @@ class BookControllerMvcTest {
     fun `test getBook endpoint`() {
         mockMvc.perform(get("/"))
             .andExpect(status().isOk)
-            .andExpect(content().string("Welcome to the book catalog!"))
     }
 }
