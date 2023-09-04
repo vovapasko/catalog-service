@@ -8,9 +8,6 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.ComponentScan
 
 @SpringBootApplication
-@EnableConfigurationProperties(
-    PolarProperties::class
-)
 @ConfigurationPropertiesScan
 class CatalogServiceApplication
 

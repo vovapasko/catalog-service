@@ -51,5 +51,5 @@ tasks.withType<Test> {
 }
 
 tasks.named<BootRun>("bootRun"){
-    systemProperty("spring.profiles.active", "prod")
+    systemProperty("spring.profiles.active", "testdata")
 }
