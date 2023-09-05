@@ -19,11 +19,7 @@ class BookService(
         return bookRepository.save(book)
     }
 
-    fun removeBookFromCatalog(isbn: String) {
-        if (!bookRepository.deleteByIsbn(isbn)) {
-            throw BookNotFoundException(isbn)
-        }
-    }
+    fun removeBookFromCatalog(isbn: String) = bookRepository.deleteByIsbn(isbn)
 
     fun editBook(isbn: String, book: Book): Book {
         return bookRepository.findByIsbn(isbn)?.let {
@@ -33,6 +29,8 @@ class BookService(
                 book.title,
                 book.author,
                 book.price,
+                it.createdDate,
+                it.lastModifiedDate,
                 it.version
             )
             bookRepository.save(updatedBook)

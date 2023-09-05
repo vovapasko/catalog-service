@@ -1,10 +1,14 @@
 package com.polarbookshop.catalogservice.domain
 
 
-interface BookRepository {
-    fun existsByIsbn(isbn: String): Boolean
+import org.springframework.data.repository.CrudRepository
+import org.springframework.transaction.annotation.Transactional
+
+
+interface BookRepository : CrudRepository<Book, Long> {
     fun findByIsbn(isbn: String): Book?
-    fun findAll(): List<Book>
-    fun save(book: Book): Book
-    fun deleteByIsbn(isbn: String): Boolean
+    fun existsByIsbn(isbn: String): Boolean
+
+    @Transactional
+    fun deleteByIsbn(isbn: String)
 }
