@@ -29,10 +29,4 @@ class InMemoryBookRepository : BookRepository {
     override fun deleteByIsbn(isbn: String): Boolean {
         return booksCatalog.remove(isbn) != null
     }
-
-    override fun editBook(isbn: String, book: Book): Book? {
-        booksCatalog.remove(isbn) ?: return null
-        booksCatalog[isbn] = book
-        return book
-    }
 }
