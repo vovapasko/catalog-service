@@ -15,7 +15,7 @@ class CatalogServiceApplicationTests {
 
     @Test
     fun `create book returns created book`() {
-        val expectedBook = Book("1231231231", "Title", "Author", 9.90)
+        val expectedBook = Book.of("1231231231", "Title", "Author", 9.90)
 
         webTestClient
             .post()

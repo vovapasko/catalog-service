@@ -19,7 +19,7 @@ class BookValidationTest {
 
     @Test
     fun `test book validation succeeds`() {
-        val book = Book(
+        val book = Book.of(
             "1234567890", "my super book",
             "Jon Doe", 12.33
         )
@@ -29,7 +29,7 @@ class BookValidationTest {
 
     @Test
     fun `test book validation fails`() {
-        val book = Book(
+        val book = Book.of(
             "", "my super book",
             "Jon Doe", 12.33
         )
@@ -40,7 +40,7 @@ class BookValidationTest {
 
     @Test
     fun `test book price validation fails`() {
-        val book = Book(
+        val book = Book.of(
             "1234567890", "my super book",
             "Jon Doe", -12.33
         )

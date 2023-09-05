@@ -26,7 +26,17 @@ class BookService(
     }
 
     fun editBook(isbn: String, book: Book): Book {
-        return bookRepository.editBook(isbn, book) ?: throw BookNotFoundException(isbn)
+        return bookRepository.findByIsbn(isbn)?.let {
+            val updatedBook = Book(
+                it.id,
+                book.isbn,
+                book.title,
+                book.author,
+                book.price,
+                it.version
+            )
+            bookRepository.save(updatedBook)
+        } ?: throw BookNotFoundException(isbn)
     }
 
 
