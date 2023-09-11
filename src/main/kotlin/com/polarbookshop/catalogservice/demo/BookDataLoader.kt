@@ -16,11 +16,11 @@ class BookDataLoader(val bookRepository: BookRepository) {
         bookRepository.deleteAll()
         val book1 = Book.of(
             "1234567891", "Northern Lights",
-            "Lyra Silverstar", 9.90
+            "Lyra Silverstar", 9.90, "House of Books"
         )
         val book2 = Book.of(
             "1234567892", "Polar Journey",
-            "Iorek Polarson", 12.90
+            "Iorek Polarson", 12.90, "Magic Dragon"
         )
         bookRepository.saveAll(listOf(book1, book2))
     }

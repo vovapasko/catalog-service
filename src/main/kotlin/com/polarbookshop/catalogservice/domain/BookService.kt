@@ -29,6 +29,7 @@ class BookService(
                 book.title,
                 book.author,
                 book.price,
+                it.publisher,
                 it.createdDate,
                 it.lastModifiedDate,
                 it.version

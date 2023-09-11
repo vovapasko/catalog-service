@@ -17,7 +17,7 @@ class CatalogServiceApplicationTests {
 
     @Test
     fun `create book returns created book`() {
-        val expectedBook = Book.of("1231231231", "Title", "Author", 9.90)
+        val expectedBook = Book.of("1231231231", "Title", "Author", 9.90, "Hello worlds")
 
         webTestClient
             .post()
@@ -31,6 +31,7 @@ class CatalogServiceApplicationTests {
                     assertThat(actualBook.author).isEqualTo(expectedBook.author)
                     assertThat(actualBook.title).isEqualTo(expectedBook.title)
                     assertThat(actualBook.price).isEqualTo(expectedBook.price)
+                    assertThat(actualBook.publisher).isEqualTo(expectedBook.publisher)
                 }
             }
     }

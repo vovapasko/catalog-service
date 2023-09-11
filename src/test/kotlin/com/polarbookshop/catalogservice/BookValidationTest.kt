@@ -21,7 +21,7 @@ class BookValidationTest {
     fun `test book validation succeeds`() {
         val book = Book.of(
             "1234567890", "my super book",
-            "Jon Doe", 12.33
+            "Jon Doe", 12.33, "HAHAHA"
         )
         val violations = validator.validate(book)
         assert(violations.isEmpty())
@@ -31,7 +31,7 @@ class BookValidationTest {
     fun `test book validation fails`() {
         val book = Book.of(
             "", "my super book",
-            "Jon Doe", 12.33
+            "Jon Doe", 12.33, "HAHAHA"
         )
         val violations = validator.validate(book)
         assert(violations.size == 2)
@@ -42,7 +42,7 @@ class BookValidationTest {
     fun `test book price validation fails`() {
         val book = Book.of(
             "1234567890", "my super book",
-            "Jon Doe", -12.33
+            "Jon Doe", -12.33, "HAHAHA"
         )
         val violations = validator.validate(book)
         assert(violations.size == 1)

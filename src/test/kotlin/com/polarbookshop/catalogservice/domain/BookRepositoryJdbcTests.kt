@@ -25,9 +25,9 @@ class BookRepositoryJdbcTests {
     lateinit var jdbcAggregateTemplate: JdbcAggregateTemplate
 
     @Test
-    fun `find book by isin when existing`(){
+    fun `find book by isin when existing`() {
         val bookIsbn = "1234561237"
-        val book = Book.of(bookIsbn, "Title", "Author", 12.90)
+        val book = Book.of(bookIsbn, "Title", "Author", 12.90, "My publisher")
         jdbcAggregateTemplate.insert(book)
         val actualBook = bookRepository.findByIsbn(bookIsbn)
 
