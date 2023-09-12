@@ -65,4 +65,13 @@ tasks.named<BootRun>("bootRun"){
 tasks.getByName<BootBuildImage>("bootBuildImage"){
     imageName = project.name
     environment = mapOf("BP_JVM_VERSION" to "17.*")
+
+    docker{
+        publishRegistry{
+            username = project.findProperty("registryUsername").toString()
+            password = project.findProperty("registryToken").toString()
+            url = project.findProperty("registryUrl").toString()
+        }
+    }
+
 }
