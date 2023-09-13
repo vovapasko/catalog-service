@@ -42,4 +42,4 @@ management:
         include: refresh
 
 polar:
-  greeting-message: "Hello from local"
+  greeting: "Hello from local"

@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RestController
 class HomeController(val polarProperties: PolarProperties) {
 
     @GetMapping
-    fun home() = polarProperties.greetingMessage
+    fun home() = polarProperties.greeting
 
 }
